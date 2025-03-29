@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký tài khoản</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="main">
+    <h2>Đăng ký tài khoản</h2>
+    <form id="registerForm">
+      <input type="text" id="username" placeholder="Tên tài khoản" required>
+      <div id="usernameError" class="error-message"></div>
+      
+      <input type="password" id="password" placeholder="Mật khẩu" required>
+      <div id="passwordError" class="error-message"></div>
+      
+      <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+      <div id="confirmError" class="error-message"></div>
+      
+      <button type="submit">Đăng ký</button>
+    </form>
+    <p>Đã có tài khoản? <a href="./login.html">Đăng nhập</a></p>
+   </div>
+
+   <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Reset errors
+      document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+      document.querySelectorAll('input').forEach(el => el.classList.remove('error'));
+      
+      // Get values
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      // Validate
+      let isValid = true;
+      
+      if (username.length < 5) {
+        document.getElementById('usernameError').textContent = 'Tên tài khoản phải có ít nhất 5 ký tự';
+        document.getElementById('username').classList.add('error');
+        isValid = false;
+      }
+      
+      if (password.length < 6) {
+        document.getElementById('passwordError').textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
+        document.getElementById('password').classList.add('error');
+        isValid = false;
+      }
+      
+      if (password !== confirmPassword) {
+        document.getElementById('confirmError').textContent = 'Mật khẩu không khớp';
+        document.getElementById('confirmPassword').classList.add('error');
+        isValid = false;
+      }
+      
+      if (isValid) {
+        // In a real app, you would send data to server here
+        alert('Đăng ký thành công!');
+        window.location.href = 'login.html';
+      }
+    });
+   </script>
+</body>
+</html>
